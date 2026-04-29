@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Braxton — Site Personnel</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 5%;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -10%; right: -5%;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,169,110,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-text { position: relative; z-index: 1; }
+
+    .hero-pre {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-pre span {
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gris);
+      font-weight: 500;
+    }
+
+    .hero-pre::before {
+      content: '';
+      width: 30px; height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-name .highlight {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero-role {
+      font-size: 1.15rem;
+      color: var(--gris);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: #555;
+      max-width: 450px;
+      margin-bottom: 2.5rem;
+      line-height: 1.9;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-image {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-image-frame {
+      width: 380px;
+      height: 460px;
+      background: var(--gris-clair);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-image-frame::after {
+      content: '';
+      position: absolute;
+      bottom: -8px; right: -8px;
+      width: 100%; height: 100%;
+      border: 2px solid var(--accent);
+      z-index: -1;
+    }
+
+    .hero-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: var(--gris);
+      background: linear-gradient(135deg, #e8e4df 0%, #d8d0c8 100%);
+    }
+
+    .hero-image-placeholder svg { opacity: 0.4; }
+    .hero-image-placeholder p { font-size: 0.85rem; opacity: 0.7; }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--gris-clair);
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--noir);
+    }
+
+    .stat-num span { color: var(--accent); }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--gris);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ===== SECTION INTRO ===== */
+    .section-intro {
+      padding: 6rem 5%;
+      background: var(--noir);
+      color: var(--blanc);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .intro-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.4;
+      font-style: italic;
+    }
+
+    .intro-quote em { color: var(--accent); font-style: normal; }
+
+    .intro-text { color: rgba(245,242,238,0.7); line-height: 1.9; }
+
+    /* ===== SECTION COMPÉTENCES ===== */
+    .section-skills {
+      padding: 6rem 5%;
+    }
+
+    .skills-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5px;
+      background: var(--gris-clair);
+      border: 1px solid var(--gris-clair);
+    }
+
+    .skill-card {
+      background: var(--blanc);
+      padding: 2rem;
+      transition: all var(--transition);
+      cursor: default;
+    }
+
+    .skill-card:hover {
+      background: var(--noir);
+      color: var(--blanc);
+    }
+
+    .skill-card:hover .skill-icon { color: var(--accent); }
+    .skill-card:hover .skill-desc { color: rgba(245,242,238,0.6); }
+
+    .skill-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      transition: color var(--transition);
+    }
+
+    .skill-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-desc {
+      font-size: 0.9rem;
+      color: var(--gris);
+      line-height: 1.7;
+      transition: color var(--transition);
+    }
+
+    /* ===== SECTION RÉCENTES ===== */
+    .section-recent {
+      padding: 6rem 5%;
+      background: var(--gris-clair);
+    }
+
+    .recent-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .recent-card {
+      background: var(--blanc);
+      overflow: hidden;
+      transition: transform var(--transition);
+    }
+
+    .recent-card:hover { transform: translateY(-6px); }
+
+    .recent-card-img {
+      height: 200px;
+      background: linear-gradient(135deg, var(--noir) 0%, #333 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 3rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+    }
+
+    .recent-card-body { padding: 1.5rem; }
+
+    .recent-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .recent-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+    }
+
+    .recent-desc {
+      font-size: 0.9rem;
+      color: var(--gris);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 1024px) {
+      .hero, .section-intro { grid-template-columns: 1fr; }
+      .hero-image { display: none; }
+      .recent-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .recent-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html" class="nav-logo">Adimadji <span>Braxton</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="apropos.html">À Propos</a></li>
+      <li><a href="portfolio.html">Portfolio / CV</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- SECTION HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <div class="hero-pre fade-in">
+          <span>Étudiant en Informatique — ENASTIC</span>
+        </div>
+        <h1 class="hero-name fade-in fade-in-delay-1">
+          Bonjour, je suis<br>
+          <span class="highlight">Adimadji Braxton</span>
+        </h1>
+        <p class="hero-role fade-in fade-in-delay-2">Développeur Web &amp; Passionné de Technologies</p>
+        <p class="hero-desc fade-in fade-in-delay-2">
+          Étudiant en L1 Informatique à l'ENASTIC, je construis des interfaces web
+          modernes et accessibles. Curieux, créatif et rigoureux, je donne vie à vos projets.
+        </p>
+        <div class="hero-cta fade-in fade-in-delay-3">
+          <a href="portfolio.html" class="btn btn-filled">Voir mon Portfolio</a>
+          <a href="contact.html" class="btn btn-accent">Me Contacter</a>
+        </div>
+        <div class="hero-stats fade-in fade-in-delay-4">
+          <div>
+            <div class="stat-num">1<span>+</span></div>
+            <div class="stat-label">An d'études</div>
+          </div>
+          <div>
+            <div class="stat-num">3<span>+</span></div>
+            <div class="stat-label">Projets réalisés</div>
+          </div>
+          <div>
+            <div class="stat-num">4<span></span></div>
+            <div class="stat-label">Technologies</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image fade-in fade-in-delay-2">
+        <div class="hero-image-frame">
+          <img src="img2.jpeg" alt="Photo de profil"> 
+          <div class="hero-image-placeholder">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+            <p>ma Photo</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION CITATION -->
+    <section class="section-intro">
+      <div class="intro-quote fade-in">
+        "Le code est comme la poésie — <em>chaque ligne</em> doit avoir une raison d'être."
+      </div>
+      <div>
+        <span class="section-tag">Ma Mission</span>
+        <p class="intro-text">
+          Passionné par le développement web depuis mes premières lignes de HTML,
+          j'aspire à créer des expériences numériques qui allient esthétique et fonctionnalité.
+          À l'ENASTIC, je forge les bases techniques qui feront de moi un développeur
+          complet et professionnel.
+        </p>
+        <br>
+        <a href="apropos.html" class="btn" style="border-color:var(--accent);color:var(--accent);">
+          En savoir plus →
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION COMPÉTENCES -->
+    <section class="section-skills">
+      <div class="skills-header">
+        <div>
+          <span class="section-tag">Ce que je sais faire</span>
+          <h2 class="section-title">Mes Compétences</h2>
+        </div>
+        <a href="portfolio.html" class="btn">Voir tous les projets →</a>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">🌐</div>
+          <div class="skill-name">HTML5 &amp; CSS3</div>
+          <p class="skill-desc">Création de structures web sémantiques et de mises en page responsives modernes.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🎨</div>
+          <div class="skill-name">python</div>
+          <p class="skill-desc">clarté et polyvalence pour créer rapidement des solutions puissantes et évolutives.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">⚡</div>
+          <div class="skill-name">administration Reseau</div>
+          <p class="skill-desc">rigueur et efficacité pour gérer, organiser et simplifier les processus au quotidien en Reseau.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">📱</div>
+          <div class="skill-name">programmation procedurale</div>
+          <p class="skill-desc">mini projtes et manipulation de fichiers en language c .</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION RÉALISATIONS RÉCENTES -->
+    <section class="section-recent">
+      <span class="section-tag">Mes travaux</span>
+      <h2 class="section-title">Projets Récents</h2>
+      <div class="recent-grid">
+        <div class="recent-card">
+          <div class="recent-card-img">01</div>
+          <div class="recent-card-body">
+            <span class="recent-tag">HTML / CSS</span>
+            <h3 class="recent-title">Site Web Personnel</h3>
+            <p class="recent-desc">Création d'un portfolio personnel responsive pour présenter mon parcours et mes compétences.</p>
+          </div>
+        </div>
+        <div class="recent-card">
+          <div class="recent-card-img" style="background: linear-gradient(135deg,#1a3a2e,#2d6a4f)">02</div>
+          <div class="recent-card-body">
+            <span class="recent-tag">Projet Académique</span>
+            <h3 class="recent-title">Page de Présentation</h3>
+            <p class="recent-desc">Développement d'une page web de présentation d'un sujet académique avec mise en forme CSS avancée.</p>
+          </div>
+        </div>
+        <div class="recent-card">
+          <div class="recent-card-img" style="background: linear-gradient(135deg,#3a1a1a,#8b3a3a)">03</div>
+          <div class="recent-card-body">
+            <span class="recent-tag">Exercice Pratique</span>
+            <h3 class="recent-title">Formulaire Interactif</h3>
+            <p class="recent-desc">Conception et validation d'un formulaire de contact avec html et styles personnalisés.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 <span class="footer-accent">Adimadji Braxton</span> — Tous droits réservés</p>
+    <p style="margin-top:0.5rem;">Étudiant L1 Informatique · ENASTIC · N'Djamena, Tchad</p>
+  </footer>
+
+</body>
+</html>

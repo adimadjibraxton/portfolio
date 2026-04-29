@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio / CV — Braxton</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* PAGE HEADER */
+    .page-header {
+      background: linear-gradient(135deg, var(--noir) 0%, #1a1a2e 100%);
+      color: var(--blanc);
+      padding: 6rem 5% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::after {
+      content: 'PORTFOLIO';
+      position: absolute;
+      top: 50%; right: 5%;
+      transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 8rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.03);
+      letter-spacing: -0.05em;
+      white-space: nowrap;
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    /* SECTION CV DOWNLOAD */
+    .cv-download-bar {
+      background: var(--accent);
+      padding: 1.2rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .cv-download-bar p {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .cv-download-bar a {
+      background: var(--noir);
+      color: var(--blanc);
+      padding: 0.7rem 1.5rem;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+
+    .cv-download-bar a:hover { opacity: 0.8; }
+
+    /* SECTION PROJETS */
+    .section-projects {
+      padding: 6rem 5%;
+    }
+
+    .projects-filter {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--gris-clair);
+      background: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: all var(--transition);
+      letter-spacing: 0.05em;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--noir);
+      color: var(--blanc);
+      border-color: var(--noir);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      border: 1px solid var(--gris-clair);
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+
+    .project-card:hover {
+      border-color: var(--noir);
+      box-shadow: 6px 6px 0 var(--noir);
+      transform: translate(-3px, -3px);
+    }
+
+    .project-img {
+      height: 220px;
+      background: var(--gris-clair);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .project-card:hover .project-overlay { opacity: 1; }
+
+    .project-overlay a {
+      color: var(--blanc);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .project-overlay a:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .project-body { padding: 1.5rem; }
+
+    .project-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--gris-clair);
+      padding: 0.2rem 0.6rem;
+      color: var(--gris);
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--gris);
+      line-height: 1.7;
+    }
+
+    /* SECTION CV COMPLET */
+    .section-cv {
+      padding: 6rem 5%;
+      background: var(--gris-clair);
+    }
+
+    .cv-container {
+      background: var(--blanc);
+      max-width: 900px;
+      margin: 3rem auto 0;
+      padding: 4rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    /* CV HEAD */
+    .cv-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid var(--noir);
+      gap: 2rem;
+    }
+
+    .cv-name-block h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .cv-name-block .cv-role {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .cv-contact-block {
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--gris);
+      line-height: 2;
+    }
+
+    /* CV SECTION */
+    .cv-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .cv-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      border-bottom: 1px solid var(--noir);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cv-entry {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cv-entry-date {
+      font-size: 0.8rem;
+      color: var(--gris);
+      padding-top: 0.2rem;
+    }
+
+    .cv-entry-title {
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .cv-entry-place {
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .cv-entry-desc {
+      font-size: 0.88rem;
+      color: var(--gris);
+      line-height: 1.7;
+    }
+
+    /* Skills CV */
+    .cv-skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .cv-skill-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .cv-skill-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .cv-container { padding: 2rem 1.5rem; }
+      .cv-head { flex-direction: column; }
+      .cv-contact-block { text-align: left; }
+      .cv-entry { grid-template-columns: 1fr; gap: 0.3rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Adimadji <span>Braxton</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="apropos.html">À Propos</a></li>
+      <li><a href="portfolio.html" class="active">Portfolio / CV</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <header class="page-header">
+      <span class="section-tag fade-in">Mes Réalisations</span>
+      <h1 class="fade-in fade-in-delay-1">Portfolio &amp; CV</h1>
+    </header>
+
+    <!-- BARRE TÉLÉCHARGEMENT CV -->
+    <div class="cv-download-bar">
+      <p>📄 Consultez ou téléchargez mon CV complet en format PDF</p>
+      <a href="cv.pdf" download>⬇ Télécharger mon CV</a>
+    </div>
+
+    <!-- PROJETS -->
+    <section class="section-projects">
+      <span class="section-tag">Ce que j'ai créé</span>
+      <h2 class="section-title">Mes Projets</h2>
+
+      <div class="projects-filter">
+        <button class="filter-btn active">Tous</button>
+        <button class="filter-btn">HTML / CSS</button>
+        <button class="filter-btn">python</button>
+        <button class="filter-btn">Académique</button>
+      </div>
+
+      <div class="projects-grid">
+
+        <article class="project-card fade-in">
+          <div class="project-img" style="background: linear-gradient(135deg,#1a1a2e,#2d2d50)">
+            <span>01</span>
+            <div class="project-overlay">
+              <a href="#">Voir le projet</a>
+              <a href="#">Code source</a>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="project-tag">HTML</span>
+              <span class="project-tag">CSS</span>
+            </div>
+            <h3 class="project-title">Site Web Personnel (CV)</h3>
+            <p class="project-desc">
+              Conception et développement d'un site web CV multi-pages responsive.
+              Structure sémantique, animations CSS, design épuré.
+              <strong>Résultat :</strong> Site complet et hébergé en ligne.
+            </p>
+          </div>
+        </article>
+
+        <article class="project-card fade-in fade-in-delay-1">
+          <div class="project-img" style="background: linear-gradient(135deg,#1a3a2e,#2d6a4f)">
+            <span>02</span>
+            <div class="project-overlay">
+              <a href="#">Voir le projet</a>
+              <a href="#">Code source</a>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="project-tag">HTML</span>
+              <span class="project-tag">CSS</span>
+              <span class="project-tag">Responsive</span>
+            </div>
+            <h3 class="project-title">Page de Présentation Académique</h3>
+            <p class="project-desc">
+              Création d'une page web de présentation d'un thème académique avec
+              mise en page en colonnes, tableaux et mise en forme avancée.
+            </p>
+          </div>
+        </article>
+
+        <article class="project-card fade-in fade-in-delay-2">
+          <div class="project-img" style="background: linear-gradient(135deg,#3a1a1a,#8b3a3a)">
+            <span>03</span>
+            <div class="project-overlay">
+              <a href="#">Voir le projet</a>
+              <a href="#">Code source</a>
+            </div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="project-tag">HTML</span>
+              <span class="project-tag">CSS</span>
+              
+            </div>
+            <h3 class="project-title">Formulaire de Contact Interactif</h3>
+            <p class="project-desc">
+              Formulaire avec validation html, styles personnalisés et
+              messages d'erreur dynamiques.
+              <strong>Résultat :</strong> Formulaire entièrement fonctionnel et accessible.
+            </p>
+          </div>
+        </article>
+   </div>
+
+    </section>
+
+    <!-- CV COMPLET -->
+    <section class="section-cv" id="cv">
+      <span class="section-tag">Curriculum Vitae</span>
+      <h2 class="section-title">Mon CV Complet</h2>
+
+      <div class="cv-container fade-in">
+
+        <!-- EN-TÊTE CV -->
+        <div class="cv-head">
+          <div class="cv-name-block">
+            <h2>Adimadji Braxton</h2>
+            <div class="cv-role">Étudiant en Informatique · Développeur Web</div>
+          </div>
+          <div class="cv-contact-block">
+            <div>📍 N'Djamena, Tchad</div>
+            <div>✉️ adimadjib@gmail.com</div>
+            <div>🌐 www.votre-site.netlify.app</div>
+          </div>
+        </div>
+
+        <!-- OBJECTIF -->
+        <div class="cv-section">
+          <div class="cv-section-title">Objectif Professionnel</div>
+          <p style="font-size:0.9rem; color:var(--gris); line-height:1.8;">
+            Étudiant passionné en première année de licence informatique à l'ENASTIC, 
+            je recherche des opportunités de stage et de projets collaboratifs pour 
+            mettre en pratique mes compétences en développement web et contribuer à des 
+            projets innovants au Tchad et en Afrique.
+          </p>
+        </div>
+
+        <!-- FORMATION -->
+        <div class="cv-section">
+          <div class="cv-section-title">Formation</div>
+          <div class="cv-entry">
+            <div class="cv-entry-date">2025 – Présent</div>
+            <div>
+              <div class="cv-entry-title">Licence 1 en Informatique (L1 INFO)</div>
+              <div class="cv-entry-place">ENASTIC — École Nationale Supérieure des TIC, N'Djamena</div>
+              <div class="cv-entry-desc">Modules suivis : Développement Web 1, Algorithmique, Systèmes d'exploitation, Mathématiques pour l'informatique, Réseaux.</div>
+            </div>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-date">2024 – 2025</div>
+            <div>
+              <div class="cv-entry-title">Baccalauréat Scientifique — Série [D]</div>
+              <div class="cv-entry-place">Lycée [Lycée college evangelique ] — N'Djamena, Tchad</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPÉRIENCES -->
+        <div class="cv-section">
+          <div class="cv-section-title">Expériences &amp; Projets</div>
+          <div class="cv-entry">
+            <div class="cv-entry-date">Avril 2026</div>
+            <div>
+              <div class="cv-entry-title">Création d'un Site Web Personnel (CV)</div>
+              <div class="cv-entry-place">Projet Contrôle Continu — ENASTIC</div>
+              <div class="cv-entry-desc">Conception et développement d'un site web multi-pages responsive en HTML5/CSS3. Hébergement sur internet. Résultat : site complet et opérationnel.</div>
+            </div>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-date">2025 – 2026</div>
+            <div>
+              <div class="cv-entry-title">Travaux Pratiques — Développement Web</div>
+              <div class="cv-entry-place">ENASTIC — N'Djamena</div>
+              <div class="cv-entry-desc">Réalisation de pages web, formulaires, mise en page CSS, utilisation des balises sémantiques HTML5.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMPÉTENCES -->
+        <div class="cv-section">
+          <div class="cv-section-title">Compétences Techniques</div>
+          <div class="cv-skills-grid">
+            <div class="cv-skill-item"><span class="cv-skill-dot"></span>HTML5 / CSS3</div>
+            <div class="cv-skill-item"><span class="cv-skill-dot"></span>python (bases)</div>
+            <div class="cv-skill-item"><span class="cv-skill-dot"></span>administration Reseau(bases)</div>
+            <div class="cv-skill-item"><span class="cv-skill-dot"></span>Git / GitHub (bases)</div>
+            <div class="cv-skill-item"><span class="cv-skill-dot"></span>programmation procedurale</div>
+            <div class="cv-skill-item"><span class="cv-skill-dot"></span>Algorithmique</div>
+            <div class="cv-skill-item"><span class="cv-skill-dot"></span>MS Office</div>
+            <div class="cv-skill-item"><span class="cv-skill-dot"></span>Linux (initiation)</div>
+          </div>
+        </div>
+
+        <!-- LANGUES -->
+        <div class="cv-section">
+          <div class="cv-section-title">Langues</div>
+          <div class="cv-skills-grid">
+            <div class="cv-skill-item"><span class="cv-skill-dot"></span>Français — Courant</div>
+            <div class="cv-skill-item"><span class="cv-skill-dot"></span>Arabe — Natif</div>
+            <div class="cv-skill-item"><span class="cv-skill-dot"></span>Anglais — Intermédiaire</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 <span class="footer-accent">Adimadji Braxton</span> — Tous droits réservés</p>
+    <p style="margin-top:0.5rem;">Étudiant L1 Informatique · ENASTIC · N'Djamena, Tchad</p>
+  </footer>
+
+  <script>
+    // Filtrage projets (simple)
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

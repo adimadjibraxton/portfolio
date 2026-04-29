@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>À Propos — Braxton</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* PAGE HEADER */
+    .page-header {
+      background: var(--noir);
+      color: var(--blanc);
+      padding: 6rem 5% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: 'À PROPOS';
+      position: absolute;
+      top: 50%; right: 5%;
+      transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 9rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.03);
+      letter-spacing: -0.05em;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .page-header-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    /* SECTION BIOGRAPHIE */
+    .section-bio {
+      padding: 6rem 5%;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .bio-image-wrap {
+      position: sticky;
+      top: 100px;
+    }
+
+    .bio-image-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--gris-clair);
+      position: relative;
+      overflow: hidden;
+      max-width: 360px;
+    }
+
+    .bio-image-frame::before {
+      content: '';
+      position: absolute;
+      top: 12px; left: 12px;
+      width: 100%; height: 100%;
+      border: 2px solid var(--accent);
+      z-index: -1;
+    }
+
+    .bio-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(160deg, #e8e4df 0%, #ccc8c0 100%);
+      color: var(--gris);
+      gap: 1rem;
+    }
+
+    .bio-image-placeholder p { font-size: 0.85rem; }
+
+    .bio-info-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .bio-info-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--gris-clair);
+    }
+
+    .bio-info-icon { font-size: 1.3rem; }
+
+    .bio-info-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gris);
+    }
+
+    .bio-info-value {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    /* BIO CONTENT */
+    .bio-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+
+    .bio-content p {
+      color: #444;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    /* COMPÉTENCES BARRES */
+    .skills-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--gris-clair);
+    }
+
+    .skills-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+    }
+
+    .skill-bar-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .skill-bar-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-bar-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .skill-bar-pct {
+      font-size: 0.85rem;
+      color: var(--gris);
+    }
+
+    .skill-bar-track {
+      height: 3px;
+      background: var(--gris-clair);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      background: var(--accent);
+      transition: width 1.2s ease;
+    }
+
+    /* SECTION PARCOURS */
+    .section-parcours {
+      padding: 6rem 5%;
+      background: var(--noir);
+      color: var(--blanc);
+    }
+
+    .parcours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3rem;
+    }
+
+    .parcours-col h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      color: var(--accent);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: rgba(245,242,238,0.15);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 2rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.4rem; top: 0.3rem;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--noir);
+      box-shadow: 0 0 0 3px rgba(200,169,110,0.3);
+    }
+
+    .timeline-date {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-title {
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-place {
+      font-size: 0.85rem;
+      color: rgba(245,242,238,0.55);
+    }
+
+    /* SECTION PASSIONS */
+    .section-passions {
+      padding: 6rem 5%;
+    }
+
+    .passions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .passion-card {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      border: 1px solid var(--gris-clair);
+      transition: all var(--transition);
+    }
+
+    .passion-card:hover {
+      border-color: var(--accent);
+      background: rgba(200,169,110,0.05);
+      transform: translateY(-4px);
+    }
+
+    .passion-emoji { font-size: 2.5rem; margin-bottom: 1rem; }
+
+    .passion-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .passion-desc { font-size: 0.85rem; color: var(--gris); }
+
+    @media (max-width: 1024px) {
+      .section-bio { grid-template-columns: 1fr; }
+      .bio-image-wrap { position: static; display: flex; gap: 2rem; flex-wrap: wrap; }
+      .parcours-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Adimadji <span>Braxton</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="apropos.html" class="active">À Propos</a></li>
+      <li><a href="portfolio.html">Portfolio / CV</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- EN-TÊTE PAGE -->
+    <header class="page-header">
+      <span class="page-header-tag fade-in">Qui suis-je ?</span>
+      <h1 class="fade-in fade-in-delay-1">À Propos de Moi</h1>
+    </header>
+
+    <!-- BIOGRAPHIE -->
+    <section class="section-bio">
+      <div class="bio-image-wrap fade-in">
+        <div class="bio-image-frame">
+           <img src="" alt="Braxton"> 
+          <div class="bio-image-placeholder">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+            <p>ma Photo</p>
+          </div>
+        </div>
+
+        <div class="bio-info-cards">
+          <div class="bio-info-card">
+            <div class="bio-info-icon">📍</div>
+            <div>
+              <div class="bio-info-label">Localisation</div>
+              <div class="bio-info-value">N'Djamena, Tchad</div>
+            </div>
+          </div>
+          <div class="bio-info-card">
+            <div class="bio-info-icon">🎓</div>
+            <div>
+              <div class="bio-info-label">Formation</div>
+              <div class="bio-info-value">L1 Informatique — ENASTIC</div>
+            </div>
+          </div>
+          <div class="bio-info-card">
+            <div class="bio-info-icon">✉️</div>
+            <div>
+              <div class="bio-info-label">Email</div>
+              <div class="bio-info-value">adimadjib@gmail.com</div>
+            </div>
+          </div>
+          <div class="bio-info-card">
+            <div class="bio-info-icon">🌐</div>
+            <div>
+              <div class="bio-info-label">Langues</div>
+              <div class="bio-info-value">Français, Arabe, Anglais</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bio-content fade-in fade-in-delay-1">
+        <span class="section-tag">Ma Biographie</span>
+        <h2>Passionné de technologies, déterminé à laisser une empreinte numérique.</h2>
+        <div class="divider"></div>
+
+        <p>
+          Je m'appelle <strong>Adimadji Braxton</strong>, étudiant en première année de licence 
+          en Informatique à l'École Nationale Supérieure des TIC (ENASTIC) à N'Djamena. 
+          Depuis mon plus jeune âge, j'ai été fasciné par l'informatique et la façon dont 
+          la technologie transforme notre quotidien.
+        </p>
+        <p>
+          Mon parcours académique à l'ENASTIC m'a permis d'acquérir des bases solides 
+          en développement web, en algorithmique et en systèmes d'information. J'aborde 
+          chaque défi technique avec curiosité et persévérance, en cherchant toujours à 
+          comprendre non seulement le « comment » mais aussi le « pourquoi ».
+        </p>
+        <p>
+          En dehors des études, je me passionne pour la lecture de documentation technique, 
+          la participation à des projets collaboratifs, et l'exploration des dernières 
+          tendances du web. Je crois fermement que l'apprentissage continu est la clé 
+          du succès dans le monde de l'informatique.
+        </p>
+
+        <!-- COMPÉTENCES -->
+        <div class="skills-section">
+          <h3>Compétences Techniques</h3>
+
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">HTML5 &amp; CSS3</span>
+              <span class="skill-bar-pct">80%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" style="width:80%"></div>
+            </div>
+          </div>
+
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">python</span>
+              <span class="skill-bar-pct">60%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" style="width:60%"></div>
+            </div>
+          </div>
+
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">language c </span>
+              <span class="skill-bar-pct">70%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" style="width:70%"></div>
+            </div>
+          </div>
+
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">administration Reseau</span>
+              <span class="skill-bar-pct">75%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" style="width:75%"></div>
+            </div>
+          </div>
+
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">algorithmique</span>
+              <span class="skill-bar-pct">90%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" style="width:50%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:2.5rem;">
+          <a href="portfolio.html" class="btn btn-filled" style="margin-right:1rem;">Voir mon CV complet</a>
+          <a href="contact.html" class="btn btn-accent">Me contacter</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARCOURS -->
+    <section class="section-parcours">
+      <span class="section-tag">Mon Parcours</span>
+      <h2 class="section-title" style="color:var(--blanc)">Formation &amp; Expériences</h2>
+
+      <div class="parcours-grid">
+        <div class="parcours-col">
+          <h3>🎓 Formation</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">2025 — Présent</div>
+              <div class="timeline-title">Licence en Informatique (L1)</div>
+              <div class="timeline-place">ENASTIC — N'Djamena, Tchad</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">2021 — 2022</div>
+              <div class="timeline-title">Baccalauréat Scientifique</div>
+              <div class="timeline-place">Lycée [college evangelique] — N'Djamena</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">Antérieur</div>
+              <div class="timeline-title"> Primaire</div>
+              <div class="timeline-place">[holy flame]</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="parcours-col">
+          <h3>💼 Expériences &amp; Réalisations</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">Avril 2026</div>
+              <div class="timeline-title">Projet Site Web Personnel</div>
+              <div class="timeline-place">Projet académique — ENASTIC</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">2025 — 2026</div>
+              <div class="timeline-title">Développement Web 1</div>
+              <div class="timeline-place">Cours HTML/CSS — ENASTIC</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">2026</div>
+              <div class="timeline-title">[programmation procedurale]</div>
+              <div class="timeline-place">[apprentissage du language C]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASSIONS -->
+    <section class="section-passions">
+      <span class="section-tag">Ce qui me rend unique</span>
+      <h2 class="section-title">Mes Centres d'Intérêt</h2>
+      <div class="passions-grid">
+        <div class="passion-card">
+          <div class="passion-emoji">💻</div>
+          <div class="passion-name">Programmation</div>
+          <p class="passion-desc">Explorer de nouveaux langages et résoudre des problèmes logiques.</p>
+        </div>
+        <div class="passion-card">
+          <div class="passion-emoji">📚</div>
+          <div class="passion-name">Lecture</div>
+          <p class="passion-desc">Livres techniques et romans pour enrichir ma culture générale.</p>
+        </div>
+        <div class="passion-card">
+          <div class="passion-emoji">🎮</div>
+          <div class="passion-name">Gaming</div>
+          <p class="passion-desc">Les jeux vidéo comme source d'inspiration pour le design.</p>
+        </div>
+        <div class="passion-card">
+          <div class="passion-emoji">🌍</div>
+          <div class="passion-name">Cultures</div>
+          <p class="passion-desc">Ouverture au monde et aux différentes perspectives culturelles.</p>
+        </div>
+        <div class="passion-card">
+          <div class="passion-emoji">🎵</div>
+          <div class="passion-name">Musique</div>
+          <p class="passion-desc">La musique comme accompagnement de la concentration et créativité.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 <span class="footer-accent">Adimadji Braxton</span> — Tous droits réservés</p>
+    <p style="margin-top:0.5rem;">Étudiant L1 Informatique · ENASTIC · N'Djamena, Tchad</p>
+  </footer>
+
+</body>
+</html>

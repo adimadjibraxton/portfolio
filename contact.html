@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Braxton</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* PAGE HEADER */
+    .page-header {
+      background: var(--noir);
+      color: var(--blanc);
+      padding: 6rem 5% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: 'CONTACT';
+      position: absolute;
+      top: 50%; right: 5%;
+      transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 10rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.03);
+      letter-spacing: -0.05em;
+      white-space: nowrap;
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    /* SECTION CONTACT PRINCIPALE */
+    .section-contact {
+      padding: 6rem 5%;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    /* INFO CONTACT */
+    .contact-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.25;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-info p {
+      color: var(--gris);
+      line-height: 1.9;
+      margin-bottom: 3rem;
+    }
+
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .contact-method {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 1.5rem;
+      border: 1px solid var(--gris-clair);
+      transition: all var(--transition);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .contact-method:hover {
+      border-color: var(--accent);
+      background: rgba(200,169,110,0.04);
+    }
+
+    .contact-method-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .contact-method-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gris);
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-method-value {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    /* RÉSEAUX SOCIAUX */
+    .social-section h3 {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gris);
+      margin-bottom: 1rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border: 1px solid var(--gris-clair);
+      text-decoration: none;
+      color: var(--noir);
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all var(--transition);
+    }
+
+    .social-link:hover {
+      background: var(--noir);
+      color: var(--blanc);
+      border-color: var(--noir);
+    }
+
+    /* FORMULAIRE */
+    .contact-form-wrap {
+      background: var(--gris-clair);
+      padding: 3rem;
+    }
+
+    .contact-form-wrap h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      color: var(--noir);
+    }
+
+    .form-group label span {
+      color: var(--accent);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 1px solid #ccc9c3;
+      background: var(--blanc);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--noir);
+      outline: none;
+      transition: border-color var(--transition);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--noir);
+    }
+
+    .form-group textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--noir);
+      color: var(--blanc);
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .form-submit:hover { background: var(--accent); }
+
+    .form-success {
+      display: none;
+      background: rgba(124,154,138,0.15);
+      border: 1px solid var(--accent2);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent2);
+      font-size: 0.9rem;
+    }
+
+    .form-error {
+      font-size: 0.78rem;
+      color: #c0392b;
+      margin-top: 0.3rem;
+      display: none;
+    }
+
+    /* SECTION FAQ */
+    .section-faq {
+      padding: 6rem 5%;
+      background: var(--noir);
+      color: var(--blanc);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .faq-item {
+      padding: 2rem;
+      border: 1px solid rgba(245,242,238,0.1);
+      transition: border-color var(--transition);
+    }
+
+    .faq-item:hover { border-color: var(--accent); }
+
+    .faq-q {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .faq-a {
+      font-size: 0.9rem;
+      color: rgba(245,242,238,0.65);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 1024px) {
+      .section-contact { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-wrap { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Prénom <span>NOM</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="apropos.html">À Propos</a></li>
+      <li><a href="portfolio.html">Portfolio / CV</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- EN-TÊTE -->
+    <header class="page-header">
+      <span class="section-tag fade-in">Prenons contact</span>
+      <h1 class="fade-in fade-in-delay-1">Contactez-moi</h1>
+    </header>
+
+    <!-- SECTION CONTACT -->
+    <section class="section-contact">
+
+      <!-- INFOS -->
+      <div class="fade-in">
+        <span class="section-tag">Mes coordonnées</span>
+        <h2>Travaillons ensemble !</h2>
+        <p>
+          Disponible pour des projets académiques, des collaborations
+          ou simplement pour échanger sur le développement web et les technologies.
+          N'hésitez pas à me contacter.
+        </p>
+
+        <div class="contact-methods">
+          <a href="mailto:votre.email@exemple.com" class="contact-method">
+            <div class="contact-method-icon">✉️</div>
+            <div>
+              <div class="contact-method-label">Email</div>
+              <div class="contact-method-value">adimadjib@gmail.com</div>
+            </div>
+          </a>
+          <a href="tel:+23500000000" class="contact-method">
+            <div class="contact-method-icon">📞</div>
+          </a>
+          <div class="contact-method">
+            <div class="contact-method-icon">📍</div>
+            <div>
+              <div class="contact-method-label">Localisation</div>
+              <div class="contact-method-value">N'Djamena, Tchad<br>
+                <span style="font-size:0.82rem;color:var(--gris)">ENASTIC — École Nationale Supérieure des TIC</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-section">
+          <h3>Réseaux Professionnels</h3>
+          <div class="social-links">
+            <a href="https://linkedin.com/in/votre-profil" target="_blank" class="social-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              LinkedIn
+            </a>
+            <a href="https://github.com/votre-pseudo" target="_blank" class="social-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+              </svg>
+              GitHub
+            </a>
+            <a href="https://facebook.com/votre-profil" target="_blank" class="social-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+              Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMULAIRE -->
+      <div class="contact-form-wrap fade-in fade-in-delay-1">
+        <h3>Envoyez-moi un message</h3>
+
+        <div class="form-success" id="formSuccess">
+          ✅ Votre message a été envoyé avec succès ! Je vous répondrai dans les meilleurs délais.
+        </div>
+
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prenom">Prénom <span>*</span></label>
+              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" />
+              <div class="form-error" id="errPrenom">Ce champ est requis.</div>
+            </div>
+            <div class="form-group">
+              <label for="nom">Nom <span>*</span></label>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" />
+              <div class="form-error" id="errNom">Ce champ est requis.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Adresse Email <span>*</span></label>
+            <input type="email" id="email" name="email" placeholder="votre@email.com" />
+            <div class="form-error" id="errEmail">Veuillez entrer un email valide.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="sujet">Sujet <span>*</span></label>
+            <select id="sujet" name="sujet">
+              <option value="">— Choisissez un sujet —</option>
+              <option value="collaboration">Proposition de collaboration</option>
+              <option value="projet">Projet académique</option>
+              <option value="stage">Opportunité de stage</option>
+              <option value="autre">Autre</option>
+            </select>
+            <div class="form-error" id="errSujet">Veuillez choisir un sujet.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message <span>*</span></label>
+            <textarea id="message" name="message" placeholder="Écrivez votre message ici..."></textarea>
+            <div class="form-error" id="errMessage">Le message doit contenir au moins 10 caractères.</div>
+          </div>
+
+          <button type="submit" class="form-submit">Envoyer le Message →</button>
+        </form>
+      </div>
+
+    </section>
+
+    <!-- FAQ -->
+    <section class="section-faq">
+      <span class="section-tag">Questions fréquentes</span>
+      <h2 class="section-title" style="color:var(--blanc)">Vous avez des questions ?</h2>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <div class="faq-q">Dans quel délai répondez-vous ?</div>
+          <p class="faq-a">Je réponds généralement sous 24 à 48 heures. Pour les urgences, privilégiez le contact par téléphone.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Êtes-vous disponible pour des projets en groupe ?</div>
+          <p class="faq-a">Oui ! J'apprécie beaucoup le travail collaboratif et suis toujours prêt à rejoindre ou créer des équipes pour des projets académiques ou personnels.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Cherchez-vous un stage ?</div>
+          <p class="faq-a">Je suis ouvert aux opportunités de stage dans le domaine du développement web et des technologies de l'information au Tchad et à l'international.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Pouvez-vous créer un site web ?</div>
+          <p class="faq-a">Dans le cadre de mes études, je réalise des sites web statiques en HTML/CSS/JS. Je suis heureux d'aider pour des projets simples ou académiques.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 <span class="footer-accent">Adjimadi Braxton</span> — Tous droits réservés</p>
+    <p style="margin-top:0.5rem;">Étudiant L1 Informatique · ENASTIC · N'Djamena, Tchad</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const showError = (id, show) => {
+      document.getElementById(id).style.display = show ? 'block' : 'none';
+    };
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      let valid = true;
+
+      const prenom = document.getElementById('prenom').value.trim();
+      const nom = document.getElementById('nom').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const sujet = document.getElementById('sujet').value;
+      const message = document.getElementById('message').value.trim();
+
+      showError('errPrenom', !prenom); if (!prenom) valid = false;
+      showError('errNom', !nom); if (!nom) valid = false;
+      showError('errEmail', !email || !/\S+@\S+\.\S+/.test(email)); 
+      if (!email || !/\S+@\S+\.\S+/.test(email)) valid = false;
+      showError('errSujet', !sujet); if (!sujet) valid = false;
+      showError('errMessage', message.length < 10); if (message.length < 10) valid = false;
+
+      if (valid) {
+        document.getElementById('formSuccess').style.display = 'block';
+        form.reset();
+        setTimeout(() => {
+          document.getElementById('formSuccess').style.display = 'none';
+        }, 5000);
+      }
+    });
+  </script>
+
+</body>
+</html>
